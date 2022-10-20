@@ -2,7 +2,7 @@ import sys
 
 
 def main():
-    """Generates the CNF file for the n-queens problem.
+    """Generates the CNF file for the N-Queens SAT problem.
     """
     
     formula = []
