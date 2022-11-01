@@ -1,11 +1,11 @@
 import sys
 
 
-def get_row_clauses(num):
+def get_row_clauses(num: int) -> list:
     """Gets row clauses for N-Queens SAT problem formula.
 
-    :param int num: board dimension.
-    :return list: formula with row clauses.
+    :param int num: board dimension
+    :return list: formula with row clauses
     """
     formula = []
     for i in range(num):
@@ -24,11 +24,11 @@ def get_row_clauses(num):
     return formula
 
 
-def get_column_clauses(num):
+def get_column_clauses(num: int) -> list:
     """Gets column clauses for N-Queens SAT problem formula.
 
-    :param int num: board dimension.
-    :return list: formula with column clauses.
+    :param int num: board dimension
+    :return list: formula with column clauses
     """
     formula = []
     for i in range(1, num + 1):
@@ -47,10 +47,10 @@ def get_column_clauses(num):
     return formula
 
 
-def generate_board(num):
+def generate_board(num: int) -> list:
     """Generates N-Queens board.
 
-    :param int num: board dimension.
+    :param int num: board dimension
     :return list: N-Queens board
     """
     board = []    
@@ -62,15 +62,16 @@ def generate_board(num):
         
     return board
 
-def get_diagonal_clauses(num, board):
+
+def get_diagonal_clauses(num: int) -> list:
     """Gets diagonal clauses for N-Queens SAT problem formula.
 
-    :param int num: board dimension.
-    :param list board: N-Queens board.
-    :return list: formula with diagonal clauses.
+    :param int num: board dimension
+    :return list: formula with diagonal clauses
     """
     formula = []
     valid_y = range(num)
+    board = generate_board(num)
     for i in range(num):
         for j in range(num):
             diag1 = [board[k][k-i+j] for k in range(num) if k-i+j in valid_y]
@@ -91,7 +92,7 @@ def get_diagonal_clauses(num, board):
     return formula
 
 
-def write_cnf_formula(formula, file, num):
+def write_cnf_formula(formula: list, num: int, file: str = "n-queens.cnf"):
     """Writes N-Queens formula clauses to CNF file.
 
     :param list formula: formula with N-Queens clauses.
@@ -104,6 +105,7 @@ def write_cnf_formula(formula, file, num):
             temp = " ".join(map(str, clause))
             f.write(f"{temp}\n")
 
+
 def main():
     """Generates the CNF file for the N-Queens SAT problem.
     """
@@ -111,12 +113,11 @@ def main():
     
     row_formula = get_row_clauses(num)
     column_formula = get_column_clauses(num)
-    board = generate_board(num)
-    diagonal_formula = get_diagonal_clauses(num, board)
+    diagonal_formula = get_diagonal_clauses(num)
 
     formula = [*row_formula, *column_formula, *diagonal_formula]
     
-    write_cnf_formula(formula, "nqueen.cnf", num)
+    write_cnf_formula(formula, num)
         
 
 if __name__ == '__main__':
