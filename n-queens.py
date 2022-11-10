@@ -16,7 +16,7 @@ def get_row_clauses(num: int) -> list:
                 if k == chosen:
                     clause.append(k + i * num)
                 else:
-                    clause.append(-1* (k + i * num))
+                    clause.append(-1 * (k + i * num))
             chosen += 1
             clause.append(0)
             formula.append(clause)
